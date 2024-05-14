@@ -40,7 +40,7 @@ const EditBusinessPage: NextPage = () => {
       onChange={business => update.mutate({ id: businessId, business })}
 
       disabled={update.isPending}
-      error={update.error?.response?.data['message']}
+      error={update.error?.response?.data.message}
     />
   )
 }

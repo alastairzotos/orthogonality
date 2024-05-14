@@ -19,7 +19,7 @@ const BusinessCreatePage: NextPage = () => {
   return (
     <BusinessForm
       submitTitle="Create"
-      
+
       business={{
         name: 'New business',
         location: '123 Fake Street',
@@ -30,7 +30,7 @@ const BusinessCreatePage: NextPage = () => {
       onChange={business => create.mutate(business)}
 
       disabled={create.isPending}
-      error={create.error?.response?.data['message']}
+      error={create.error?.response?.data.message}
     />
   )
 }
