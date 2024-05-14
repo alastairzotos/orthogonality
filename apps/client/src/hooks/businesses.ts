@@ -1,10 +1,12 @@
 import { httpClient } from "@/clients/http-client";
-import { useQuery } from "@tanstack/react-query";
+import { CreateBusinessDto, GetBusinessDto } from "@repo/types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 
 export const useBusinesses = () => {
   const { error, data, isFetching } = useQuery({
     queryKey: ['businesses'],
-    queryFn: () => httpClient.get('/businesses').then(res => res.data)
+    queryFn: () => httpClient.get('/businesses').then(res => res.data as GetBusinessDto[])
   });
 
   return {
@@ -13,3 +15,12 @@ export const useBusinesses = () => {
     businesses: data,
   }
 };
+
+export const useCreateBusiness = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (business: CreateBusinessDto) => httpClient.post<void>('/businesses', business),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['businesses'] }),
+  })
+}
