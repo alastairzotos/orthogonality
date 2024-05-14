@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { Database, InjectDb } from "src/drizzle/provider";
 
 @Injectable()
-export class BusinessRepository {
+export class BusinessesRepository {
   constructor(
     @InjectDb() private readonly db: Database,
   ) {}
