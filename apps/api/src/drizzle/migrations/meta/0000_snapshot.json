@@ -1,5 +1,5 @@
 {
-  "id": "aa5a758a-38b4-4377-bc86-5354e0416bc5",
+  "id": "ca7071a2-8987-4cfe-a25b-ae595ae4427e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
@@ -51,7 +51,15 @@
           "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "name_idx": {
+          "name": "name_idx",
+          "columns": [
+            "name"
+          ],
+          "isUnique": true
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}

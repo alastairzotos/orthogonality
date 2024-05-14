@@ -6,3 +6,5 @@ CREATE TABLE IF NOT EXISTS "business" (
 	"createdOn" date DEFAULT now() NOT NULL,
 	"updatedOn" date DEFAULT now() NOT NULL
 );
+--> statement-breakpoint
+CREATE UNIQUE INDEX IF NOT EXISTS "name_idx" ON "business" ("name");

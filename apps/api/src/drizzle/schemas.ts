@@ -19,7 +19,9 @@ export const BusinessTable = pgTable('business', {
 
   createdOn: date('createdOn', { mode: 'string' }).defaultNow().notNull(),
   updatedOn: date('updatedOn', { mode: 'string' }).defaultNow().notNull(),
-});
+}, (business) => ({
+  name_idx: uniqueIndex('name_idx').on(business.name),
+}));
 
 export type Business = InferSelectModel<typeof BusinessTable>;
 
