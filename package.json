@@ -5,11 +5,11 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "db:generate": "turbo db:generate",
+    "db:migrate": "turbo db:migrate"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
     "prettier": "^3.2.5",
     "turbo": "latest"
   },
@@ -19,6 +19,6 @@
   "packageManager": "yarn@1.22.19",
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "libs/*"
   ]
 }
