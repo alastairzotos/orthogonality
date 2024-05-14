@@ -7,5 +7,5 @@ export interface Environment {
 }
 
 export const environment: Environment = {
-  databaseConnectionString: process.env.DB_CONNECTION_STRING as string,
+  databaseConnectionString: process.env.DB_CONNECTION_STRING as string || 'postgres://postgres:postgres@localhost:5435/orthogonality',
 };
