@@ -3,3 +3,4 @@ import { AsTable } from "../util";
 
 export type GetBusinessDto = AsTable<BusinessSchema>;
 export type CreateBusinessDto = BusinessSchema;
+export type UpdateBusinessDto = Partial<BusinessSchema>;

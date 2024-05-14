@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 
 interface Props {
+  submitTitle: string;
   business: CreateBusinessDto;
   onChange: (business: CreateBusinessDto) => void;
   onCancel: () => void;
@@ -12,7 +13,7 @@ interface Props {
   error?: string;
 }
 
-export const BusinessForm: React.FC<Props> = ({ business, onChange, onCancel, disabled, error }) => {
+export const BusinessForm: React.FC<Props> = ({ submitTitle, business, onChange, onCancel, disabled, error }) => {
   const {
     register,
     handleSubmit,
@@ -75,7 +76,7 @@ export const BusinessForm: React.FC<Props> = ({ business, onChange, onCancel, di
           variant="contained"
           disabled={!isValid || disabled}
         >
-          Create
+          {submitTitle}
         </Button>
       </Box>
 

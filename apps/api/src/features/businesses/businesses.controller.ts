@@ -1,5 +1,5 @@
-import { Body, ConflictException, Controller, Get, Post } from "@nestjs/common";
-import { CreateBusinessDto } from "src/features/businesses/business.dtos";
+import { Body, ConflictException, Controller, Get, Param, Post, Put } from "@nestjs/common";
+import { CreateBusinessDto, UpdateBusinessDto } from "src/features/businesses/business.dtos";
 import { BusinessesService } from "src/features/businesses/businesses.service";
 
 @Controller('businesses')
@@ -11,6 +11,11 @@ export class BusinessesController {
   @Get()
   async getBusinesses() {
     return await this.businessService.getBusinesses();
+  }
+
+  @Get(':id')
+  async getBusinessById(@Param('id') id: string) {
+    return await this.businessService.getBusinessById(id);
   }
 
   @Post()
@@ -26,5 +31,13 @@ export class BusinessesController {
         throw e;
       }
     }
+  }
+
+  @Put(':id')
+  async updateBusiness(
+    @Param('id') id: string,
+    @Body() body: UpdateBusinessDto,
+  ) {
+    await this.businessService.updateBusiness(id, body);
   }
 }

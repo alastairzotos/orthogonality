@@ -18,6 +18,8 @@ const BusinessCreatePage: NextPage = () => {
 
   return (
     <BusinessForm
+      submitTitle="Create"
+      
       business={{
         name: 'New business',
         location: '123 Fake Street',
@@ -25,8 +27,8 @@ const BusinessCreatePage: NextPage = () => {
       }}
 
       onCancel={() => router.push(urls.home())}
-
       onChange={business => create.mutate(business)}
+
       disabled={create.isPending}
       error={create.error?.response?.data['message']}
     />

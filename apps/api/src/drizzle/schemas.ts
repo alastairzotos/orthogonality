@@ -1,14 +1,11 @@
-import { InferSelectModel, relations } from 'drizzle-orm';
+import { InferSelectModel, relations, sql } from 'drizzle-orm';
 import {
-  date,
-  integer,
-  json,
   pgTable,
-  serial,
   text,
   varchar,
   uniqueIndex,
   uuid,
+  timestamp,
 } from 'drizzle-orm/pg-core';
 
 export const BusinessTable = pgTable('business', {
@@ -17,8 +14,8 @@ export const BusinessTable = pgTable('business', {
   name: varchar('name', { length: 255 }).notNull().default(''),
   location: text('location').notNull().default(''),
 
-  createdOn: date('createdOn', { mode: 'string' }).defaultNow().notNull(),
-  updatedOn: date('updatedOn', { mode: 'string' }).defaultNow().notNull(),
+  createdOn: timestamp('createdOn').notNull().defaultNow(),
+  updatedOn: timestamp('updatedOn').notNull().$onUpdate(() => new Date()),
 }, (business) => ({
   name_idx: uniqueIndex('name_idx').on(business.name),
 }));

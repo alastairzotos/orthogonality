@@ -8,8 +8,6 @@ import Link from "next/link";
 export default function Home() {
   const { isLoadingBusinesses, businesses, errorLoadingBusinesses } = useBusinesses();
 
-  console.log(businesses);
-
   if (isLoadingBusinesses) {
     return <LinearProgress />;
   }

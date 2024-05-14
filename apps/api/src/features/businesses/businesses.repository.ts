@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
-import { CreateBusinessDto } from "@repo/types";
+import { CreateBusinessDto, UpdateBusinessDto } from "@repo/types";
+import { eq } from "drizzle-orm";
 import { Database, InjectDb } from "src/drizzle/provider";
 import { BusinessTable } from "src/drizzle/schemas";
 
@@ -13,7 +14,20 @@ export class BusinessesRepository {
     return await this.db.query.BusinessTable.findMany();
   }
 
+  async getBusinessById(id: string) {
+    return await this.db.query.BusinessTable.findFirst({
+      where: (t, { eq }) => eq(t.id, id),
+    });
+  }
+
   async createBusiness(business: CreateBusinessDto) {
     await this.db.insert(BusinessTable).values(business);
+  }
+
+  async updateBusiness(id: string, business: UpdateBusinessDto) {
+    await this.db
+      .update(BusinessTable)
+      .set({ id, ...business })
+      .where(eq(BusinessTable.id, id));
   }
 }
