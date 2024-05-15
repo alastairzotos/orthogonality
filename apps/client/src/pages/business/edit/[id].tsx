@@ -1,6 +1,5 @@
 import { BusinessForm } from "@/components/business-form";
 import { useBusiness, useUpdateBusiness } from "@/hooks/businesses";
-import { urls } from "@/utils/urls";
 import { Alert, LinearProgress } from "@mui/material";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
@@ -11,7 +10,7 @@ const EditBusinessPage: NextPage = () => {
 
   const { loadBusinessStatus, loadBusinessError, business } = useBusiness(businessId);
   const { updateBusiness, updateBusinessStatus, updateBusinessError } = useUpdateBusiness(businessId, {
-    onSuccess: () => router.push(urls.home())
+    onSuccess: () => router.back()
   });
 
   if (loadBusinessStatus === 'pending') {
@@ -31,7 +30,6 @@ const EditBusinessPage: NextPage = () => {
       submitTitle="Update"
       business={business!}
 
-      onCancel={() => router.push(urls.home())}
       onChange={business => updateBusiness({ id: businessId, business })}
 
       disabled={updateBusinessStatus === 'pending'}

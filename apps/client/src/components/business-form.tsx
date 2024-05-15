@@ -4,17 +4,19 @@ import { BusinessType, CreateBusinessDto, businessSchema, businessTypes } from "
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { capitaliseWord } from "@/utils/misc";
+import { useRouter } from "next/router";
 
 interface Props {
   submitTitle: string;
   business: CreateBusinessDto;
   onChange: (business: CreateBusinessDto) => void;
-  onCancel: () => void;
   disabled?: boolean;
   error?: string;
 }
 
-export const BusinessForm: React.FC<Props> = ({ submitTitle, business, onChange, onCancel, disabled, error }) => {
+export const BusinessForm: React.FC<Props> = ({ submitTitle, business, onChange, disabled, error }) => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -75,7 +77,7 @@ export const BusinessForm: React.FC<Props> = ({ submitTitle, business, onChange,
 
       <Box sx={{ display: 'flex', gap: 1, pt: 3 }}>
         <Button
-          onClick={onCancel}
+          onClick={() => router.back()}
           disabled={disabled}
         >
           Cancel
