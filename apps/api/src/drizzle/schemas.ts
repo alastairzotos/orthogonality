@@ -1,3 +1,4 @@
+import { businessTypes } from '@repo/types';
 import { InferSelectModel, relations, sql } from 'drizzle-orm';
 import {
   pgTable,
@@ -6,11 +7,14 @@ import {
   uniqueIndex,
   uuid,
   timestamp,
+  pgEnum,
 } from 'drizzle-orm/pg-core';
+
+export const BusinessTypeEnum = pgEnum('businessType', businessTypes);
 
 export const BusinessTable = pgTable('business', {
   id: uuid('id').notNull().defaultRandom().primaryKey(),
-  type: varchar('type').default(''),
+  type: BusinessTypeEnum('type').default(null),
   name: varchar('name', { length: 255 }).notNull().default(''),
   location: text('location').notNull().default(''),
 

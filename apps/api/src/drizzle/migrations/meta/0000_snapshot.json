@@ -1,5 +1,5 @@
 {
-  "id": "1fea5e85-2b85-4fe2-b395-d49fb48ace94",
+  "id": "c0bc4a21-2ca7-48e3-929a-87036ed726d7",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
@@ -17,10 +17,11 @@
         },
         "type": {
           "name": "type",
-          "type": "varchar",
+          "type": "businessType",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
-          "default": "''"
+          "default": null
         },
         "name": {
           "name": "name",
@@ -64,7 +65,19 @@
       "uniqueConstraints": {}
     }
   },
-  "enums": {},
+  "enums": {
+    "public.businessType": {
+      "name": "businessType",
+      "schema": "public",
+      "values": [
+        "bar",
+        "restaurant",
+        "club",
+        "hotel",
+        "cafe"
+      ]
+    }
+  },
   "schemas": {},
   "_meta": {
     "columns": {},

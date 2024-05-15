@@ -1,3 +1,4 @@
+import { capitaliseWord } from "@/utils/misc";
 import { urls } from "@/utils/urls";
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { GetBusinessDto } from "@repo/types";
@@ -25,7 +26,7 @@ export const BusinessTable: React.FC<Props> = ({ businesses }) => {
           {businesses.map((business) => (
             <TableRow key={business.id}>
               <TableCell>{business.name}</TableCell>
-              <TableCell>{business.type}</TableCell>
+              <TableCell>{capitaliseWord(business.type || 'None')}</TableCell>
               <TableCell>{business.location}</TableCell>
               <TableCell>
                 <Button LinkComponent={Link} href={urls.businessEdit(business.id)}>

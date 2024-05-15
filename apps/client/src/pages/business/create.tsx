@@ -23,7 +23,7 @@ const BusinessCreatePage: NextPage = () => {
       business={{
         name: 'New business',
         location: '123 Fake Street',
-        type: 'Restaurant'
+        type: 'restaurant'
       }}
 
       onCancel={() => router.push(urls.home())}

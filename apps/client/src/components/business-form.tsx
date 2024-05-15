@@ -1,8 +1,9 @@
 import React from "react";
-import { Alert, Box, Button, FormLabel, TextField } from "@mui/material";
-import { CreateBusinessDto, businessSchema } from "@repo/types";
-import { useForm } from "react-hook-form";
+import { Alert, Box, Button, FormLabel, MenuItem, Select, TextField } from "@mui/material";
+import { BusinessType, CreateBusinessDto, businessSchema, businessTypes } from "@repo/types";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
+import { capitaliseWord } from "@/utils/misc";
 
 interface Props {
   submitTitle: string;
@@ -18,6 +19,7 @@ export const BusinessForm: React.FC<Props> = ({ submitTitle, business, onChange,
     register,
     handleSubmit,
     formState: { errors, isValid },
+    control,
   } = useForm<CreateBusinessDto>({
     values: business,
     resolver: zodResolver(businessSchema),
@@ -42,13 +44,21 @@ export const BusinessForm: React.FC<Props> = ({ submitTitle, business, onChange,
       />
 
       <FormLabel>Business type</FormLabel>
-      <TextField
-        {...register('type')}
-        variant="outlined"
-        size="small"
-        placeholder="Business type"
-        helperText={errors.type && errors.type.message}
-        error={!!errors.type}
+      <Controller
+        name="type"
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <Select
+            value={value}
+            onChange={onChange}
+          >
+            {businessTypes.map((businessType) => (
+              <MenuItem key={businessType} value={businessType}>
+                {capitaliseWord(businessType)}
+              </MenuItem>
+            ))}
+          </Select>
+        )}
       />
 
       <FormLabel>Location</FormLabel>
