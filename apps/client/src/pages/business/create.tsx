@@ -8,13 +8,13 @@ import { useEffect } from "react";
 const BusinessCreatePage: NextPage = () => {
   const router = useRouter();
 
-  const create = useCreateBusiness();
+  const { createBusiness, createBusinessStatus, createBusinessError } = useCreateBusiness();
 
   useEffect(() => {
-    if (create.status === 'success') {
+    if (createBusinessStatus === 'success') {
       router.push(urls.home());
     }
-  }, [create.status]);
+  }, [createBusinessStatus]);
 
   return (
     <BusinessForm
@@ -27,10 +27,10 @@ const BusinessCreatePage: NextPage = () => {
       }}
 
       onCancel={() => router.push(urls.home())}
-      onChange={business => create.mutate(business)}
+      onChange={business => createBusiness(business)}
 
-      disabled={create.isPending}
-      error={create.error?.response?.data.message}
+      disabled={createBusinessStatus === 'pending'}
+      error={createBusinessError}
     />
   )
 }

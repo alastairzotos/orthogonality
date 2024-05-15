@@ -10,20 +10,20 @@ const EditBusinessPage: NextPage = () => {
   const router = useRouter();
   const businessId = router.query.id as string;
 
-  const { isLoadingBusiness, business, errorLoadingBusiness } = useBusiness(businessId);
-  const update = useUpdateBusiness(businessId);
+  const { loadBusinessStatus, loadBusinessError, business } = useBusiness(businessId);
+  const { updateBusiness, updateBusinessStatus, updateBusinessError } = useUpdateBusiness(businessId);
 
   useEffect(() => {
-    if (update.status === 'success') {
+    if (updateBusinessStatus === 'success') {
       router.push(urls.home());
     }
-  }, [update.status]);
+  }, [updateBusinessStatus]);
 
-  if (isLoadingBusiness) {
+  if (loadBusinessStatus === 'pending') {
     return <LinearProgress />;
   }
 
-  if (errorLoadingBusiness) {
+  if (loadBusinessError) {
     return (
       <Alert severity="error">
         There was an error loading the business
@@ -37,10 +37,10 @@ const EditBusinessPage: NextPage = () => {
       business={business!}
 
       onCancel={() => router.push(urls.home())}
-      onChange={business => update.mutate({ id: businessId, business })}
+      onChange={business => updateBusiness({ id: businessId, business })}
 
-      disabled={update.isPending}
-      error={update.error?.response?.data.message}
+      disabled={updateBusinessStatus === 'pending'}
+      error={updateBusinessError}
     />
   )
 }

@@ -6,13 +6,13 @@ import { Alert, Box, Button, CircularProgress, LinearProgress } from "@mui/mater
 import Link from "next/link";
 
 export default function Home() {
-  const { isLoadingBusinesses, businesses, errorLoadingBusinesses } = useBusinesses();
+  const { loadBusinessesStatus, loadBusinessesError, businesses } = useBusinesses();
 
-  if (isLoadingBusinesses) {
+  if (loadBusinessesStatus === 'pending') {
     return <LinearProgress />;
   }
 
-  if (errorLoadingBusinesses) {
+  if (loadBusinessesError) {
     return (
       <Alert severity="error">
         There was an error loading the businesses
