@@ -25,7 +25,11 @@ export const BusinessTable: React.FC<Props> = ({ businesses }) => {
         <TableBody>
           {businesses.map((business) => (
             <TableRow key={business.id}>
-              <TableCell>{business.name}</TableCell>
+              <TableCell>
+                <Link href={urls.businessManage(business.id)}>
+                  {business.name}
+                </Link>
+              </TableCell>
               <TableCell>{capitaliseWord(business.type || 'None')}</TableCell>
               <TableCell>{business.location}</TableCell>
               <TableCell>
