@@ -3,18 +3,13 @@ import { useCreateBusiness } from "@/hooks/businesses";
 import { urls } from "@/utils/urls";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 const BusinessCreatePage: NextPage = () => {
   const router = useRouter();
 
-  const { createBusiness, createBusinessStatus, createBusinessError } = useCreateBusiness();
-
-  useEffect(() => {
-    if (createBusinessStatus === 'success') {
-      router.push(urls.home());
-    }
-  }, [createBusinessStatus]);
+  const { createBusiness, createBusinessStatus, createBusinessError } = useCreateBusiness({
+    onSuccess: () => router.push(urls.home()),
+  });
 
   return (
     <BusinessForm

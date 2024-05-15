@@ -4,20 +4,15 @@ import { urls } from "@/utils/urls";
 import { Alert, LinearProgress } from "@mui/material";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 const EditBusinessPage: NextPage = () => {
   const router = useRouter();
   const businessId = router.query.id as string;
 
   const { loadBusinessStatus, loadBusinessError, business } = useBusiness(businessId);
-  const { updateBusiness, updateBusinessStatus, updateBusinessError } = useUpdateBusiness(businessId);
-
-  useEffect(() => {
-    if (updateBusinessStatus === 'success') {
-      router.push(urls.home());
-    }
-  }, [updateBusinessStatus]);
+  const { updateBusiness, updateBusinessStatus, updateBusinessError } = useUpdateBusiness(businessId, {
+    onSuccess: () => router.push(urls.home())
+  });
 
   if (loadBusinessStatus === 'pending') {
     return <LinearProgress />;
