@@ -10,7 +10,7 @@ import {
   pgEnum,
 } from 'drizzle-orm/pg-core';
 
-export const BusinessTypeEnum = pgEnum('businessType', businessTypes);
+export const BusinessTypeEnum = pgEnum('business_type', businessTypes);
 
 export const BusinessTable = pgTable('business', {
   id: uuid('id').notNull().defaultRandom().primaryKey(),
@@ -18,8 +18,8 @@ export const BusinessTable = pgTable('business', {
   name: varchar('name', { length: 255 }).notNull().default(''),
   location: text('location').notNull().default(''),
 
-  createdOn: timestamp('createdOn').notNull().defaultNow(),
-  updatedOn: timestamp('updatedOn').notNull().$onUpdate(() => new Date()),
+  createdOn: timestamp('created_on').notNull().defaultNow(),
+  updatedOn: timestamp('updated_on').notNull().$onUpdate(() => new Date()),
 }, (business) => ({
   name_idx: uniqueIndex('name_idx').on(business.name),
 }));

@@ -1,5 +1,5 @@
 {
-  "id": "c0bc4a21-2ca7-48e3-929a-87036ed726d7",
+  "id": "5e774f2b-f58c-44a9-b391-8b54a3dca8e4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
@@ -17,7 +17,7 @@
         },
         "type": {
           "name": "type",
-          "type": "businessType",
+          "type": "business_type",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
@@ -37,15 +37,15 @@
           "notNull": true,
           "default": "''"
         },
-        "createdOn": {
-          "name": "createdOn",
+        "created_on": {
+          "name": "created_on",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
-        "updatedOn": {
-          "name": "updatedOn",
+        "updated_on": {
+          "name": "updated_on",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true
@@ -66,8 +66,8 @@
     }
   },
   "enums": {
-    "public.businessType": {
-      "name": "businessType",
+    "public.business_type": {
+      "name": "business_type",
       "schema": "public",
       "values": [
         "bar",
