@@ -7,7 +7,7 @@ import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 
-export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
+const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <Head>

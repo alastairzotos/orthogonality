@@ -1,8 +1,7 @@
-import { BusinessForm } from "@/components/business-form";
 import { BusinessTable } from "@/components/business-table";
 import { useBusinesses } from "@/hooks/businesses";
 import { urls } from "@/utils/urls";
-import { Alert, Box, Button, CircularProgress, LinearProgress } from "@mui/material";
+import { Alert, Box, Button, LinearProgress } from "@mui/material";
 import Link from "next/link";
 
 export default function Home() {

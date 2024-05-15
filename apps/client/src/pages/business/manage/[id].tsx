@@ -12,7 +12,6 @@ const ManageBusinessPage: NextPage = () => {
 
   const { loadBusinessStatus, loadBusinessError, business } = useBusiness(businessId);
 
-
   if (loadBusinessStatus === 'pending') {
     return <LinearProgress />;
   }
