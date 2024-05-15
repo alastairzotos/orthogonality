@@ -1,12 +1,12 @@
 import { httpClient } from "@/clients/http-client";
-import { CreateBusinessDto, GetBusinessDto, UpdateBusinessDto } from "@repo/types";
+import { CreateBusinessDto, GetBusinessDto, GetBusinessesDto, UpdateBusinessDto } from "@repo/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { type HookOptions, useHookOptions } from './hook-options';
 
 export const useBusinesses = (hookOptions: HookOptions = {}) => {
   const { error, data, status } = useQuery({
     queryKey: ['businesses'],
-    queryFn: () => httpClient.get('/businesses').then(res => res.data as GetBusinessDto[]),
+    queryFn: () => httpClient.get('/businesses').then(res => res.data as GetBusinessesDto),
   });
 
   useHookOptions(status, hookOptions)

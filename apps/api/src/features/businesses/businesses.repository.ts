@@ -17,6 +17,7 @@ export class BusinessesRepository {
   async getBusinessById(id: string) {
     return await this.db.query.BusinessTable.findFirst({
       where: (t, { eq }) => eq(t.id, id),
+      with: { staffMembers: true }
     });
   }
 

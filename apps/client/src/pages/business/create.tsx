@@ -20,8 +20,7 @@ const BusinessCreatePage: NextPage = () => {
         type: 'restaurant'
       }}
 
-      onChange={business => createBusiness(business)}
-
+      onChange={createBusiness}
       disabled={createBusinessStatus === 'pending'}
       error={createBusinessError}
     />

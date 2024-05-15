@@ -1,18 +1,18 @@
 import { capitaliseWord } from "@/utils/misc";
 import { urls } from "@/utils/urls";
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import { GetBusinessDto } from "@repo/types";
+import { GetBusinessesDto } from "@repo/types";
 import Link from "next/link";
 import React from "react";
 
 interface Props {
-  businesses: GetBusinessDto[];
+  businesses: GetBusinessesDto;
 }
 
 export const BusinessTable: React.FC<Props> = ({ businesses }) => {
   return (
     <TableContainer component={Paper} elevation={4}>
-      <Table sx={{ width: 600 }}>
+      <Table sx={{ width: 800 }}>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
@@ -26,9 +26,9 @@ export const BusinessTable: React.FC<Props> = ({ businesses }) => {
           {businesses.map((business) => (
             <TableRow key={business.id}>
               <TableCell>
-                <Link href={urls.businessManage(business.id)}>
+                <Button LinkComponent={Link} href={urls.businessManage(business.id)}>
                   {business.name}
-                </Link>
+                </Button>
               </TableCell>
               <TableCell>{capitaliseWord(business.type || 'None')}</TableCell>
               <TableCell>{business.location}</TableCell>

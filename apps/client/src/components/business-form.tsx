@@ -1,6 +1,6 @@
 import React from "react";
 import { Alert, Box, Button, FormLabel, MenuItem, Select, TextField } from "@mui/material";
-import { BusinessType, CreateBusinessDto, businessSchema, businessTypes } from "@repo/types";
+import { CreateBusinessDto, businessSchema, businessTypes } from "@repo/types";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { capitaliseWord } from "@/utils/misc";
