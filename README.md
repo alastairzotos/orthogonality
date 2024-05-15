@@ -1,4 +1,4 @@
-# Orthogonality Challenge
+# Orthogonality Task
 
 This was developed using NestJS and NextJS.
 
@@ -34,7 +34,7 @@ Navigate to http://localhost:3001 in your browser
 
 ### CI/CD and deployment plan
 
-Included is a Dockerfile that makes it easy to build docker containers in a Turbo monorepo. All that's required in the docker build command is a `SCOPE` variable, referring to which app to build (`api` or `client`) and a `PORT`.
+Included is a Dockerfile that makes it easy to build docker containers in a Turbo monorepo. All that's required in the docker build command is a `SCOPE` variable, referring to which app to build (`api` or `client`) and a `PORT` for port mappings.
 
 This can be done easily from CI pipelines such as GitHub Actions.
 
