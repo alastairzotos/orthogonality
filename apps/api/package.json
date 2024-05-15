@@ -21,14 +21,17 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx ./src/drizzle/migrate.ts",
-    "db:drop-migration": "drizzle-kit drop"
+    "db:drop-migration": "drizzle-kit drop",
+    "db:uml": "tsx ./src/drizzle/uml.ts && dbml-renderer -i src/drizzle/uml/schema.dbml -o src/drizzle/uml/erd.svg"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
     "@repo/types": "*",
+    "@softwaretechnik/dbml-renderer": "^1.0.30",
     "dotenv": "^16.4.5",
+    "drizzle-dbml-generator": "^0.6.1",
     "drizzle-kit": "^0.21.2",
     "drizzle-orm": "^0.30.10",
     "nestjs-zod": "^3.0.0",
