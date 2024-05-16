@@ -5,6 +5,8 @@ import { CreateStaffMemberDto, staffMemberPositionTypes, staffMemberSchema } fro
 import { useRouter } from "next/router";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
+import PhoneInput from "react-phone-input-2";
+import 'react-phone-input-2/lib/style.css'
 
 interface Props {
   submitTitle: string;
@@ -67,13 +69,16 @@ export const StaffMemberForm: React.FC<Props> = ({ submitTitle, staffMember, onC
       />
 
       <FormLabel>Phone number</FormLabel>
-      <TextField
-        {...register('phoneNumber')}
-        variant="outlined"
-        size="small"
-        placeholder="Phone number"
-        helperText={errors.phoneNumber && errors.phoneNumber.message}
-        error={!!errors.phoneNumber}
+      <Controller
+        name="phoneNumber"
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <PhoneInput
+            inputStyle={{ width: '100%' }}
+            value={value}
+            onChange={onChange}
+          />
+        )}
       />
 
       <FormLabel>Position</FormLabel>
