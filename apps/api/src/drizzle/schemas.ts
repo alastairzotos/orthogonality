@@ -13,17 +13,21 @@ import {
 // Used to ensure tables satisfy zod schemas defined in libs/types/
 type InferValid<T, _ extends T> = T;
 
+const commonColumns = {
+  id: uuid('id').notNull().defaultRandom().primaryKey(),
+  createdOn: timestamp('created_on').notNull().defaultNow(),
+  updatedOn: timestamp('updated_on').notNull().$onUpdate(() => new Date()),
+}
+
 // Business
 export const BusinessTypeEnum = pgEnum('business_type', businessTypes);
 
 export const BusinessTable = pgTable('business', {
-  id: uuid('id').notNull().defaultRandom().primaryKey(),
+  ...commonColumns,
+  
   type: BusinessTypeEnum('type').default(null),
   name: varchar('name', { length: 255 }).notNull().default(''),
   location: text('location').notNull().default(''),
-
-  createdOn: timestamp('created_on').notNull().defaultNow(),
-  updatedOn: timestamp('updated_on').notNull().$onUpdate(() => new Date()),
 }, (business) => ({
   name_idx: uniqueIndex('name_idx').on(business.name),
 }));
@@ -34,7 +38,7 @@ export type Business = InferValid<BusinessSchema, InferSelectModel<typeof Busine
 export const StaffMemberPositionTypeEnum = pgEnum('staff_member_position_type', staffMemberPositionTypes);
 
 export const StaffMemberTable = pgTable('staff_member', {
-  id: uuid('id').notNull().defaultRandom().primaryKey(),
+  ...commonColumns,
 
   businessId: uuid('business_id').notNull().references(() => BusinessTable.id),
   email: varchar('email', { length: 255 }).notNull().default(''),
@@ -42,9 +46,6 @@ export const StaffMemberTable = pgTable('staff_member', {
   lastName: varchar('last_name', { length: 255 }).notNull().default(''),
   phoneNumber: varchar('phone_number', { length: 255 }).default(''),
   position: StaffMemberPositionTypeEnum('position').notNull().default('kitchen'),
-
-  createdOn: timestamp('created_on').notNull().defaultNow(),
-  updatedOn: timestamp('updated_on').notNull().$onUpdate(() => new Date()),
 }, (staffMember) => ({
   email_idx: uniqueIndex('email_idx').on(staffMember.email),
 }));
