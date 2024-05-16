@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { isMobilePhone } from 'validator';
 
 // Business
 
@@ -27,7 +28,8 @@ export const staffMemberSchema = z.object({
   email: z.string().email('Invalid email').min(1),
   firstName: z.string().min(1),
   lastName: z.string().min(1),
-  phoneNumber: z.string().nullable(),
+  phoneNumber: z.string().nullable()
+    .refine(value => value !== null ? isMobilePhone(value) : true, { message: 'Invalid phone number '}),
   position: staffMemberPositionTypeSchema
 });
 
