@@ -9,7 +9,11 @@ const EditBusinessPage: NextPage = () => {
   const businessId = router.query.id as string;
 
   const { loadBusinessStatus, loadBusinessError, business } = useBusiness(businessId);
-  const { updateBusiness, updateBusinessStatus, updateBusinessError } = useUpdateBusiness(businessId, {
+  const {
+    updateBusiness,
+    updateBusinessStatus,
+    updateBusinessError
+  } = useUpdateBusiness(businessId, {
     onSuccess: () => router.back()
   });
 

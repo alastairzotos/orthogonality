@@ -1,15 +1,13 @@
 import { httpClient } from "@/clients/http-client";
+import { HookOptions } from "@/hooks/hook-options";
 import { CreateBusinessDto, GetBusinessDto, GetBusinessesDto, UpdateBusinessDto } from "@repo/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { type HookOptions, useHookOptions } from './hook-options';
 
-export const useBusinesses = (hookOptions: HookOptions = {}) => {
+export const useBusinesses = () => {
   const { error, data, status } = useQuery({
     queryKey: ['businesses'],
     queryFn: () => httpClient.get('/businesses').then(res => res.data as GetBusinessesDto),
   });
-
-  useHookOptions(status, hookOptions)
 
   return {
     businesses: data,
@@ -18,15 +16,16 @@ export const useBusinesses = (hookOptions: HookOptions = {}) => {
   }
 }
 
-export const useCreateBusiness = (hookOptions: HookOptions = {}) => {
+export const useCreateBusiness = ({ onSuccess }: HookOptions = {}) => {
   const queryClient = useQueryClient();
 
   const create = useMutation({
     mutationFn: (business: CreateBusinessDto) => httpClient.post<void>('/businesses', business),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['businesses'] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['businesses'] });
+      onSuccess?.();
+    },
   })
-
-  useHookOptions(create.status, hookOptions)
 
   return {
     createBusiness: create.mutate,
@@ -35,13 +34,11 @@ export const useCreateBusiness = (hookOptions: HookOptions = {}) => {
   }
 }
 
-export const useBusiness = (id: string, hookOptions: HookOptions = {}) => {
+export const useBusiness = (id: string) => {
   const { error, data, status } = useQuery({
     queryKey: ['businesses', id],
     queryFn: () => httpClient.get(`/businesses/${id}`).then(res => res.data as GetBusinessDto),
   });
-
-  useHookOptions(status, hookOptions)
 
   return {
     business: data,
@@ -50,15 +47,16 @@ export const useBusiness = (id: string, hookOptions: HookOptions = {}) => {
   }
 }
 
-export const useUpdateBusiness = (id: string, hookOptions: HookOptions = {}) => {
+export const useUpdateBusiness = (id: string, { onSuccess }: HookOptions = {}) => {
   const queryClient = useQueryClient();
 
   const update = useMutation({
     mutationFn: ({ id, business }: { id: string, business: UpdateBusinessDto }) => httpClient.put<void>(`/businesses/${id}`, business),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['businesses', id] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['businesses', id] });
+      onSuccess?.();
+    },
   })
-
-  useHookOptions(update.status, hookOptions)
 
   return {
     updateBusiness: update.mutate,

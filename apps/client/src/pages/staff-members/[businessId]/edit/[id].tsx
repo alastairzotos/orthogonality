@@ -11,7 +11,7 @@ const StaffMemberEditPage: NextPage = () => {
 
   const { loadStaffMemberStatus, loadStaffMemberError, staffMember } = useStaffMember(id);
 
-  const { updateStaffMemberStatus, updateStaffMemberError, updateStaffMember } = useUpdateStaffMember(businessId, id, {
+  const { updateStaffMemberStatus, updateStaffMemberError, updateStaffMember } = useUpdateStaffMember(businessId, {
     onSuccess: () => router.back(),
   })
 

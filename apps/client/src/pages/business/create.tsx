@@ -7,7 +7,7 @@ const BusinessCreatePage: NextPage = () => {
   const router = useRouter();
 
   const { createBusiness, createBusinessStatus, createBusinessError } = useCreateBusiness({
-    onSuccess: () => router.back(),
+    onSuccess: () => router.back()
   });
 
   return (

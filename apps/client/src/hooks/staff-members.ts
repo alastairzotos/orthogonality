@@ -1,17 +1,18 @@
 import { httpClient } from "@/clients/http-client"
-import { HookOptions, useHookOptions } from "@/hooks/hook-options"
+import { HookOptions } from "@/hooks/hook-options"
 import { CreateStaffMemberDto, GetStaffMemberDto, UpdateStaffMemberDto } from "@repo/types"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
-export const useCreateStaffMember = (businessId: string, hookOptions: HookOptions = {}) => {
+export const useCreateStaffMember = (businessId: string, { onSuccess }: HookOptions = {}) => {
   const queryClient = useQueryClient();
 
   const create = useMutation({
     mutationFn: (staffMember: CreateStaffMemberDto) => httpClient.post<void>('/staff-members', staffMember),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['staff-members', businessId] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['staff-members', businessId] });
+      onSuccess?.();
+    },
   })
-
-  useHookOptions(create.status, hookOptions)
 
   return {
     createStaffMember: create.mutate,
@@ -20,13 +21,11 @@ export const useCreateStaffMember = (businessId: string, hookOptions: HookOption
   }
 }
 
-export const useStaffMember = (id: string, options: HookOptions = {}) => {
+export const useStaffMember = (id: string) => {
   const { error, data, status } = useQuery({
     queryKey: ['staff-member', id],
     queryFn: () => httpClient.get(`/staff-members/${id}`).then(res => res.data as GetStaffMemberDto),
   })
-
-  useHookOptions(status, options);
 
   return {
     staffMember: data,
@@ -35,15 +34,16 @@ export const useStaffMember = (id: string, options: HookOptions = {}) => {
   }
 }
 
-export const useUpdateStaffMember = (businessId: string, id: string, hookOptions: HookOptions = {}) => {
+export const useUpdateStaffMember = (businessId: string, { onSuccess }: HookOptions = {}) => {
   const queryClient = useQueryClient();
 
   const update = useMutation({
     mutationFn: ({ id, staffMember }: { id: string, staffMember: UpdateStaffMemberDto }) => httpClient.put<void>(`/staff-members/${id}`, staffMember),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['staff-members', businessId] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['staff-members', businessId] });
+      onSuccess?.();
+    },
   })
-
-  useHookOptions(update.status, hookOptions)
 
   return {
     updateStaffMember: update.mutate,
