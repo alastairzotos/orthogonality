@@ -10,16 +10,13 @@ For the database ORM I opted for Drizzle. Schemas can be found in `apps/api/src/
 
 You must have node, yarn and docker installed.
 
-If you are running on Mac/Linux and/or have `make` installed:
-- Run `make` in the same directory as the app
-- Navigate to http://localhost:3001 in your browser
-
-Otherwise:
+In your terminal:
 - `docker-compose up -d`
 - `yarn`
 - `yarn db:migrate`
 - `yarn dev`
-- Navigate to http://localhost:3001 in your browser
+
+Then navigate to http://localhost:3001 in your browser
 
 
 ### Database schema
