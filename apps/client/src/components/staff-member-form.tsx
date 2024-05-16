@@ -72,11 +72,12 @@ export const StaffMemberForm: React.FC<Props> = ({ submitTitle, staffMember, onC
       <Controller
         name="phoneNumber"
         control={control}
-        render={({ field: { onChange, value } }) => (
+        render={({ field: { onChange, value }, fieldState: { error }}) => (
           <PhoneInput
             inputStyle={{ width: '100%' }}
             value={value}
             onChange={onChange}
+            isValid={() => error?.message! || true}
           />
         )}
       />

@@ -29,7 +29,7 @@ export const staffMemberSchema = z.object({
   firstName: z.string().min(1),
   lastName: z.string().min(1),
   phoneNumber: z.string().nullable()
-    .refine(value => value !== null ? isMobilePhone(value) : true, { message: 'Invalid phone number '}),
+    .refine(value => value !== null && !!value.length ? isMobilePhone(value) : true, { message: 'Invalid phone number '}),
   position: staffMemberPositionTypeSchema
 });
 
