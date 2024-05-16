@@ -11,7 +11,7 @@ import {
 } from 'drizzle-orm/pg-core';
 
 // Used to ensure tables satisfy zod schemas defined in libs/types/
-type InferValid<T, _ extends T> = T;
+type DoesExtend<T, _ extends T> = T;
 
 const commonColumns = {
   id: uuid('id').notNull().defaultRandom().primaryKey(),
@@ -32,7 +32,7 @@ export const BusinessTable = pgTable('business', {
   name_idx: uniqueIndex('name_idx').on(business.name),
 }));
 
-export type Business = InferValid<BusinessSchema, InferSelectModel<typeof BusinessTable>>;
+export type Business = DoesExtend<BusinessSchema, InferSelectModel<typeof BusinessTable>>;
 
 // Staff member
 export const StaffMemberPositionTypeEnum = pgEnum('staff_member_position_type', staffMemberPositionTypes);
@@ -50,7 +50,7 @@ export const StaffMemberTable = pgTable('staff_member', {
   email_idx: uniqueIndex('email_idx').on(staffMember.email),
 }));
 
-export type StaffMember = InferValid<StaffMemberSchema, InferSelectModel<typeof StaffMemberTable>>;
+export type StaffMember = DoesExtend<StaffMemberSchema, InferSelectModel<typeof StaffMemberTable>>;
 
 // --------------------------------------------------------------------------------
 // Relations
