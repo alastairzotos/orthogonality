@@ -1,5 +1,5 @@
-import { businessTypes, staffMemberPositionTypes } from '@repo/types';
-import { InferSelectModel, relations, sql } from 'drizzle-orm';
+import { BusinessSchema, StaffMemberSchema, businessTypes, staffMemberPositionTypes } from '@repo/types';
+import { InferSelectModel, relations } from 'drizzle-orm';
 import {
   pgTable,
   text,
@@ -10,6 +10,10 @@ import {
   pgEnum,
 } from 'drizzle-orm/pg-core';
 
+// Used to ensure tables satisfy zod schemas defined in libs/types/
+type InferValid<T, _ extends T> = T;
+
+// Business
 export const BusinessTypeEnum = pgEnum('business_type', businessTypes);
 
 export const BusinessTable = pgTable('business', {
@@ -24,8 +28,9 @@ export const BusinessTable = pgTable('business', {
   name_idx: uniqueIndex('name_idx').on(business.name),
 }));
 
-export type Business = InferSelectModel<typeof BusinessTable>;
+export type Business = InferValid<BusinessSchema, InferSelectModel<typeof BusinessTable>>;
 
+// Staff member
 export const StaffMemberPositionTypeEnum = pgEnum('staff_member_position_type', staffMemberPositionTypes);
 
 export const StaffMemberTable = pgTable('staff_member', {
@@ -44,7 +49,7 @@ export const StaffMemberTable = pgTable('staff_member', {
   email_idx: uniqueIndex('email_idx').on(staffMember.email),
 }));
 
-export type StaffMember = InferSelectModel<typeof StaffMemberTable>;
+export type StaffMember = InferValid<StaffMemberSchema, InferSelectModel<typeof StaffMemberTable>>;
 
 // --------------------------------------------------------------------------------
 // Relations
