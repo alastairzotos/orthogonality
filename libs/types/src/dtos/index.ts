@@ -1,5 +1,5 @@
-import { StaffMemberSchema, type BusinessSchema } from "../schemas";
-import { AsTable } from "../util";
+import type { StaffMemberSchema, BusinessSchema } from "../schemas";
+import type { AsTable } from "../util";
 
 export type GetBusinessDto = AsTable<BusinessSchema & { staffMembers: GetStaffMembersDto }>;
 export type GetBusinessesDto = Array<AsTable<BusinessSchema>>;
