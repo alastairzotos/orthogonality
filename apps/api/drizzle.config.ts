@@ -6,7 +6,7 @@ export default defineConfig({
     url: environment.databaseConnectionString,
   },
   dialect: 'postgresql',
-  schema: './src/drizzle/schemas.ts',
+  schema: './src/drizzle/schemas/index.ts',
   out: './src/drizzle/migrations',
   strict: true,
   verbose: true,

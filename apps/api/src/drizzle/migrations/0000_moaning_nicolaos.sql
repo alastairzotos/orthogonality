@@ -1,19 +1,34 @@
 DO $$ BEGIN
+ CREATE TYPE "public"."business_type" AS ENUM('bar', 'restaurant', 'club', 'hotel', 'cafe');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  CREATE TYPE "public"."staff_member_position_type" AS ENUM('kitchen', 'service', 'PR');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "business" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"created_on" timestamp DEFAULT now() NOT NULL,
+	"updated_on" timestamp NOT NULL,
+	"type" "business_type" DEFAULT null,
+	"name" varchar(255) DEFAULT '' NOT NULL,
+	"location" text DEFAULT '' NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "staff_member" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"created_on" timestamp DEFAULT now() NOT NULL,
+	"updated_on" timestamp NOT NULL,
 	"business_id" uuid NOT NULL,
 	"email" varchar(255) DEFAULT '' NOT NULL,
 	"first_name" varchar(255) DEFAULT '' NOT NULL,
 	"last_name" varchar(255) DEFAULT '' NOT NULL,
 	"phone_number" varchar(255) DEFAULT '',
-	"position" "staff_member_position_type" DEFAULT 'kitchen' NOT NULL,
-	"created_on" timestamp DEFAULT now() NOT NULL,
-	"updated_on" timestamp NOT NULL
+	"position" "staff_member_position_type" DEFAULT 'kitchen' NOT NULL
 );
 --> statement-breakpoint
 DO $$ BEGIN
@@ -22,4 +37,5 @@ EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
+CREATE UNIQUE INDEX IF NOT EXISTS "name_idx" ON "business" ("name");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "email_idx" ON "staff_member" ("email");
